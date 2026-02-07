@@ -582,11 +582,11 @@
     .toast.show{ display:block; }
 
     .kbd{
-      padding:4px 8px;
+      padding:2px 4px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.10);
-      font-size: 11px;
+      font-size: 9px;
       color: rgba(255,247,234,.88);
     }
 
@@ -693,6 +693,102 @@
       #loginPage .logo img{ max-width:130px; }
       #loginPage .login-box h2{ font-size:18px; }
     }
+    
+    /* ===============================
+   RESPONSIVE FIX FOR MOBILE
+   =============================== */
+@media (max-width: 768px){
+
+  body{
+    overflow-x: hidden !important;
+  }
+
+  header{
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .header-actions{
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Layout 2 cột → 1 cột */
+  main{
+    grid-template-columns: 1fr !important;
+    padding: 10px 12px !important;
+  }
+
+  .panel{
+    border-radius: 16px;
+  }
+
+  /* Wheel */
+  .wheel-wrap{
+    min-height: 240px !important;
+    padding: 10px !important;
+  }
+
+  .wheel{
+    width: 94% !important;
+  }
+
+  /* Digit fix */
+  .digit{
+    width: 62px !important;
+    height: 80px !important;
+    font-size: 48px !important;
+  }
+  .digits{ gap: 8px !important; }
+
+  .pill{
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .btn{
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+  }
+
+  .modal{
+    width: 96% !important;
+  }
+  .modal .big{
+    font-size: 32px !important;
+  }
+  .modal h3{
+    font-size: 16px !important;
+  }
+
+  table{
+    font-size: 12px;
+  }
+  tbody td{
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+}
+
+/* Dưới 480px (điện thoại nhỏ) */
+@media (max-width: 480px){
+  .digit{
+    width: 50px !important;
+    height: 72px !important;
+    font-size: 40px !important;
+  }
+
+  .title h1{
+    font-size: 13px !important;
+  }
+
+  .title p{
+    font-size: 11px !important;
+  }
+}
+
   </style>
 </head>
 
@@ -868,12 +964,12 @@
               </thead>
               <tbody id="winnersBody">
                 <tr>
-                  <td colspan="4" class="muted">Chưa có ai trúng thưởng. Hãy bắt đầu quay 🎉</td>
+                  <td colspan="4" class="muted">Chưa có ai trúng thưởng. Hãy bắt đầu quay thưởng</td>
                 </tr>
               </tbody>
             </table>
-            <div class="muted" style="margin-top:10px;">
-              * Dữ liệu lưu trên trình duyệt (localStorage). Bấm <b>Reset</b> để xoá. • Popup: <span class="kbd">Enter</span> xác nhận, <span class="kbd">Esc</span> hủy.
+            <div class="muted" style="margin-top:12px;">
+              + Dữ liệu lưu trên trình duyệt (localStorage). Bấm <b>Reset</b> để xoá. </br>+ Popup: <span class="kbd">Enter</span> xác nhận, <span class="kbd">Esc</span> hủy.
             </div>
           </div>
         </div>
@@ -1136,7 +1232,7 @@
 
       function renderWinnersTable(){
         if(state.winners.length === 0){
-          winnersBody.innerHTML = `<tr><td colspan="4" class="muted">Chưa có ai trúng thưởng. Hãy bắt đầu quay 🎉</td></tr>`;
+          winnersBody.innerHTML = `<tr><td colspan="4" class="muted">Chưa có ai trúng thưởng. Hãy bắt đầu quay thưởng</td></tr>`;
           return;
         }
         const rows = state.winners
