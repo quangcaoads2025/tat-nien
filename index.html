@@ -762,6 +762,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <script>
+    let bgMusic = new Audio("https://raw.githubusercontent.com/quangcaoads2025/tat-nien/main/nhacquayso.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.7;
+
     const MAX_NUMBER = 400;
     const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxzX9r0yWH8-2h8DOjelHYEMlpHWXS5jGwIlKIaf5Cs7TkaRc8YLooU409IHmYo2KWJ/exec";
 
@@ -1269,6 +1273,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     els.btnSound.addEventListener("click", () => {
       state.soundOn = !state.soundOn;
+
+      if (state.soundOn) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+      }
+
       updateUI();
       showToast(state.soundOn ? "Đã bật âm thanh" : "Đã tắt âm thanh");
     });
@@ -1328,6 +1340,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if(ok) showApp(); else showLogin();
       setDigits(0);
       updateUI();
+      if (state.soundOn) bgMusic.play();
     }
     boot();
   </script>
