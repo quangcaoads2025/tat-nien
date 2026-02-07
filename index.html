@@ -1,0 +1,1575 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quay Số Tất Niên Ngọc Anh (001–400)</title>
+
+  <style>
+    :root{
+      --bg1:#c80b23;
+      --bg2:#ffb26b;
+      --bg3:#fff1c9;
+      --spring:#2ecc71;
+
+      --gold:#ffd36a;
+      --gold2:#ffb83f;
+      --red:#e12626;
+      --text:#fff7ea;
+      --muted: rgba(255,247,234,.78);
+      --shadow: 0 18px 55px rgba(0,0,0,.32);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      overflow-x:hidden;
+
+      background:
+        radial-gradient(900px 520px at 12% 12%, rgba(255,241,201,.85), transparent 58%),
+        radial-gradient(800px 520px at 88% 18%, rgba(255,211,106,.45), transparent 60%),
+        radial-gradient(820px 640px at 50% 96%, rgba(255,122,90,.22), transparent 60%),
+        radial-gradient(600px 420px at 78% 75%, rgba(46,204,113,.12), transparent 62%),
+        linear-gradient(180deg, var(--bg1) 0%, #d40b2a 28%, #ff6f4f 62%, var(--bg2) 100%);
+
+      min-height:100vh;
+      position:relative;
+    }
+
+    .sparkle{
+      position:absolute; inset:-120px -120px auto -120px;
+      height:420px; pointer-events:none; opacity:.42;
+      background:
+        radial-gradient(circle at 12% 35%, rgba(255,211,106,.75) 0 6px, transparent 7px 100%),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.45) 0 3px, transparent 4px 100%),
+        radial-gradient(circle at 40% 30%, rgba(255,184,63,.65) 0 5px, transparent 6px 100%),
+        radial-gradient(circle at 70% 25%, rgba(255,211,106,.65) 0 6px, transparent 7px 100%),
+        radial-gradient(circle at 88% 36%, rgba(255,184,63,.60) 0 5px, transparent 6px 100%),
+        radial-gradient(circle at 86% 18%, rgba(255,255,255,.42) 0 3px, transparent 4px 100%),
+        radial-gradient(circle at 58% 14%, rgba(46,204,113,.26) 0 5px, transparent 6px 100%),
+        radial-gradient(circle at 50% 38%, rgba(225,38,38,.42) 0 9px, transparent 10px 100%);
+      mask-image: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,.0));
+    }
+
+    header{
+      padding: 26px 18px 10px;
+      max-width: 1180px;
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width: 260px;
+    }
+
+    .logo{
+      width: 120px;
+      height: 120px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:none !important;
+      border:none !important;
+      box-shadow:none !important;
+      padding:0;
+    }
+
+    .logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    @keyframes shine { to{ transform: rotate(360deg); } }
+
+    .title{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:4px;
+    }
+    .title h1{
+      font-size: 16px;
+      margin:0;
+      letter-spacing:.4px;
+      text-transform: uppercase;
+      line-height:1.2;
+    }
+    .title p{
+      margin:0;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.6px;
+    }
+
+    .header-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .chip{
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      font-size:12px;
+      color: var(--muted);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      white-space:nowrap;
+    }
+    .chip b{ color: var(--text); font-weight:700; }
+
+    .btn{
+      cursor:pointer;
+      user-select:none;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      font-weight:700;
+      letter-spacing:.2px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, filter .12s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.26); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.primary{
+      background: linear-gradient(145deg, rgba(255,211,106,.98), rgba(255,184,63,.82));
+      color:#4c1600;
+      border-color: rgba(255,255,255,.24);
+      filter: drop-shadow(0 12px 22px rgba(255,184,63,.22));
+    }
+    .btn.danger{
+      background: rgba(225,38,38,.18);
+      border-color: rgba(225,38,38,.40);
+      color: var(--text);
+    }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; filter:none; }
+
+    main{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 18px 36px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+    }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+    }
+
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .panel-header{
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    .panel-header h2{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.4px;
+      text-transform: uppercase;
+    }
+    .panel-header small{ color: var(--muted); }
+
+    .draw-area{
+      padding: 18px;
+      display:grid;
+      gap:14px;
+      position:relative;
+    }
+
+    .wheel-wrap{
+      border-radius: 26px;
+      padding: 18px;
+      background:
+        radial-gradient(1200px 500px at 50% 0%, rgba(255,241,201,.38), transparent 55%),
+        radial-gradient(900px 700px at 50% 100%, rgba(255,122,90,.22), transparent 60%),
+        rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.14);
+      position:relative;
+      overflow:hidden;
+      min-height: 340px;
+      display:grid;
+      place-items:center;
+    }
+
+    .wheel-wrap:before{
+      content:"";
+      position:absolute; inset:-60%;
+      background: conic-gradient(from 0deg,
+        rgba(255,211,106,.00),
+        rgba(255,211,106,.22),
+        rgba(255,255,255,.06),
+        rgba(255,184,63,.20),
+        rgba(255,211,106,.00));
+      animation: rotate 10s linear infinite;
+      opacity:.45;
+    }
+    @keyframes rotate{ to{ transform: rotate(360deg);} }
+
+    .wheel{
+      position:relative;
+      width:min(460px, 94%);
+      aspect-ratio: 1/1;
+      border-radius: 999px;
+      background: radial-gradient(circle at 50% 50%, rgba(0,0,0,.28), rgba(0,0,0,.04) 55%, rgba(255,241,201,.14) 70%, rgba(255,184,63,.12));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow:
+        0 24px 60px rgba(0,0,0,.38),
+        inset 0 0 0 10px rgba(255,211,106,.08),
+        inset 0 0 0 1px rgba(255,255,255,.10);
+      display:grid;
+      place-items:center;
+      z-index:1;
+    }
+
+    .ring{
+      position:absolute; inset: -10px;
+      border-radius:999px;
+      border: 2px solid rgba(255,211,106,.26);
+      box-shadow: inset 0 0 0 10px rgba(225,38,38,.10);
+      opacity:.9;
+    }
+
+    .pointer{
+      position:absolute;
+      top:-18px; left:50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-bottom: 28px solid rgba(255,241,201,.98);
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.30));
+      z-index:2;
+    }
+
+    .digits{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      align-items:center;
+      padding: 8px 6px;
+    }
+
+    .digit{
+      width: 92px;
+      height: 120px;
+      border-radius: 18px;
+      display:grid;
+      place-items:center;
+      font-weight: 950;
+      font-size: 82px;
+      color: rgba(255,255,255,.95);
+      letter-spacing: 1px;
+      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.35),
+        inset 0 0 0 1px rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      position:relative; overflow:hidden;
+      text-shadow: 0 10px 24px rgba(0,0,0,.45);
+    }
+
+    .digit:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 30deg, transparent, rgba(255,255,255,.28), transparent 60%);
+      animation: shine 2.6s linear infinite;
+      opacity:.18;
+    }
+
+    @media (max-width: 520px){
+      .digit{ width:72px; height:98px; font-size:64px; border-radius:16px; }
+    }
+
+    .sub{
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align:center;
+      letter-spacing:.25px;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:center;
+      margin-top: 2px;
+    }
+
+    .statusbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .pill{
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      font-size: 12px;
+      color: var(--muted);
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .pill strong{ color: var(--text); font-weight:800; }
+
+    .winners{
+      padding: 12px 16px 16px;
+      display:grid;
+      gap:12px;
+    }
+
+    .prizes{ display:grid; gap:10px; }
+
+    .prize{
+      border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      padding: 12px 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+
+    .prize .left{ display:grid; gap:4px; }
+    .prize .left b{ font-size: 13px; letter-spacing:.2px; }
+    .prize .left small{ color: var(--muted); }
+
+    .badge{
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,211,106,.18);
+      border: 1px solid rgba(255,211,106,.34);
+      color: var(--text);
+      font-weight:800;
+      font-size: 12px;
+      white-space:nowrap;
+    }
+
+    .actions-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-start;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.14);
+    }
+
+    thead th{
+      text-align:left;
+      font-size:12px;
+      letter-spacing:.35px;
+      text-transform:uppercase;
+      padding: 12px 10px;
+      color: rgba(255,247,234,.92);
+      background: rgba(255,255,255,.10);
+      border-bottom:1px solid rgba(255,255,255,.14);
+    }
+
+    tbody td{
+      padding: 12px 10px;
+      font-size: 13px;
+      color: rgba(255,247,234,.94);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+    }
+    tbody tr:last-child td{ border-bottom:none; }
+
+    .muted{ color: var(--muted); font-size:12px; }
+
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.68);
+      backdrop-filter: blur(6px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index: 999;
+    }
+    .overlay.show{ display:flex; }
+
+    .modal{
+      width:min(720px, 96vw);
+      border-radius: 26px;
+      background:
+        radial-gradient(900px 500px at 50% 0%, rgba(255,241,201,.30), transparent 60%),
+        radial-gradient(700px 520px at 20% 100%, rgba(255,122,90,.24), transparent 60%),
+        linear-gradient(180deg, rgba(40,10,10,.92), rgba(22,6,6,.92));
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 40px 120px rgba(0,0,0,.55);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .modal:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 20deg, transparent, rgba(255,255,255,.30), transparent 60%);
+      animation: shine 2.6s linear infinite;
+      opacity:.18;
+    }
+
+    .modal-inner{
+      position:relative;
+      padding: 18px 18px 16px;
+      display:grid;
+      gap:12px;
+    }
+
+    .modal-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+    }
+
+    .modal h3{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.3px;
+      text-transform:uppercase;
+      color: rgba(255,247,234,.98);
+    }
+
+    .modal .big{
+      font-size: 44px;
+      font-weight: 950;
+      color: var(--gold);
+      text-shadow: 0 16px 40px rgba(0,0,0,.45);
+      letter-spacing: 2px;
+    }
+
+    .modal .meta{
+      color: rgba(255,247,234,.90);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .xbtn{
+      border:none;
+      background: rgba(255,255,255,.12);
+      color: var(--text);
+      width: 38px; height: 38px;
+      border-radius: 14px;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.18);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .xbtn:hover{ background: rgba(255,255,255,.16); transform: translateY(-1px); }
+
+    .form{
+      display:grid;
+      gap:10px;
+      background: rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      padding: 12px;
+    }
+
+    label{ font-size: 12px; color: var(--muted); }
+
+    input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.12);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+    }
+
+    input:focus{
+      border-color: rgba(255,211,106,.46);
+      box-shadow: 0 0 0 4px rgba(255,211,106,.14);
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      padding-top: 4px;
+    }
+
+    .confetti{
+      position:fixed; inset:0;
+      pointer-events:none;
+      display:none;
+      z-index: 1000;
+    }
+    .confetti.show{ display:block; }
+    .confetti span{
+      position:absolute;
+      width: 10px; height: 14px;
+      border-radius: 4px;
+      opacity:.95;
+      animation: fall linear forwards;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,.22));
+    }
+    @keyframes fall{
+      from{ transform: translateY(-10vh) rotate(0deg); }
+      to{ transform: translateY(110vh) rotate(720deg); }
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.40);
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,247,234,.92);
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      display:none;
+      z-index: 1200;
+      backdrop-filter: blur(8px);
+    }
+    .toast.show{ display:block; }
+
+    .kbd{
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.10);
+      font-size: 11px;
+      color: rgba(255,247,234,.88);
+    }
+
+    /* ===== LOGIN (scoped) ===== */
+    #loginPage{
+      position:fixed; inset:0;
+      background:#f5f6f8;
+      z-index:2000;
+    }
+    #loginPage *{ box-sizing:border-box; font-family:"Segoe UI", Arial, sans-serif; }
+    #loginPage{ color:#222; }
+    #loginPage input, #loginPage label, #loginPage h1, #loginPage h2, #loginPage p, #loginPage a, #loginPage .footer{ color:#222; }
+    #loginPage .login-right{ width:45%; background:#fff; display:flex; align-items:center; justify-content:center; min-height:100vh; color:#222; }
+
+    #loginPage .login-wrapper{ min-height:100vh; display:flex; }
+    #loginPage .login-inner{ width:100%; min-height:100vh; display:flex; }
+    #loginPage .login-left{
+      width:55%;
+      padding: 44px 54px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.15), transparent 45%),
+        linear-gradient(135deg, #d32f2f, #b71c1c);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    #loginPage .left-text{ text-align:center; max-width:760px; margin:0 auto 40px; }
+    #loginPage .left-text h1{ font-size: 28px; margin-bottom:14px; color:#fff; }
+    #loginPage .left-text p{ font-size: 14px; line-height:1.6; opacity:.95; color:#fff; }
+    #loginPage .brand-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap: 16px; max-width:760px; margin:0 auto; }
+    #loginPage .brand-item{ background:#fff; border-radius:12px; aspect-ratio:4/3; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.15); }
+    #loginPage .brand-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    #loginPage .login-box{ width: 340px; margin-top: -10px; }
+    #loginPage .logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom: 20px;
+    width: 100%;
+    }
+
+    #loginPage .logo img{
+    width: 260px;   /* chỉnh tùy thích: 200–300px */
+    height: auto;
+    object-fit: contain;
+    }
+    #loginPage .login-box h2{ text-align:center; font-size:20px; margin:4px 0 18px; color:#222; }
+
+    #loginPage .form-group{ margin-bottom:16px; }
+    #loginPage label{ font-size:14px; color:#555; margin-bottom:6px; display:block; }
+    #loginPage input[type="text"], #loginPage input[type="password"]{
+      width:100%;
+      padding: 11px;
+      border-radius:6px;
+      border:1px solid #ccc;
+      font-size:14px;
+      background:#fff;
+      color:#222;
+    }
+    #loginPage input:focus{ outline:none; border-color:#d32f2f; }
+
+    #loginPage .login-options{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:20px; font-size:13px;
+    }
+    #loginPage .remember{ display:flex; align-items:center; gap:6px; white-space:nowrap; color:#222; }
+    #loginPage .login-options a{ color:#d32f2f; text-decoration:none; white-space:nowrap; }
+
+    #loginPage button{
+      width:100%;
+      padding: 12px;
+      background:#d32f2f;
+      border:none;
+      color:#fff;
+      font-size:15px;
+      font-weight:600;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    #loginPage button:hover{ background:#b71c1c; }
+
+    #loginPage .footer{ text-align:center; font-size:12px; color:#999; margin-top:25px; }
+    #loginPage .login-error{
+      display:none;
+      margin: 10px 0 14px;
+      padding:10px 12px;
+      border-radius:8px;
+      background:#fdecea;
+      color:#b71c1c;
+      border:1px solid #f5c2c7;
+      font-size:13px;
+    }
+
+    @media(max-width:1024px){ #loginPage .brand-grid{ grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:768px){
+      #loginPage .login-left{ display:none; }
+      #loginPage .login-right{ width:100%; min-height:100vh; }
+      #loginPage .login-box{ margin-top:-60px; padding:0 20px; }
+    }
+    @media(max-width:480px){
+      #loginPage .logo img{ max-width:130px; }
+      #loginPage .login-box h2{ font-size:18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div id="loginPage">
+    <div class="login-wrapper">
+      <div class="login-inner">
+        <div class="login-left">
+          <div class="left-text">
+            <h1>HỆ THỐNG Ô TÔ_XE MÁY NGỌC ANH</h1>
+            <p>Được thành lập từ năm 1996, Ngọc Anh là đơn vị uy tín với gần 30 năm kinh nghiệm trong lĩnh vực phân phối ô tô, xe máy, xe điện và xe nhập khẩu chính hãng.</p>
+          </div>
+          <div class="brand-grid">
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/1.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/2.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/3.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/4.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/5.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/6.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/7.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/8.jpg" alt=""></div>
+            <div class="brand-item"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/9.jpg" alt=""></div>
+          </div>
+        </div>
+
+        <div class="login-right">
+          <div class="login-box">
+            <div class="logo">
+              <img src="https://bydthanhcong.vn/wp-content/uploads/2025/12/NGOC-ANH-LOGO-01.png" alt="Logo">
+            </div>
+            <h2>NGỌC ANH TỰ TIN TRÊN MỌI HÀNH TRÌNH</h2>
+
+            <div class="login-error" id="loginError">Sai tên đăng nhập hoặc mật khẩu.</div>
+
+            <div class="form-group">
+              <label for="loginUser">Tên đăng nhập</label>
+              <input id="loginUser" type="text" placeholder="Nhập tên đăng nhập" autocomplete="username">
+            </div>
+
+            <div class="form-group">
+              <label for="loginPass">Mật khẩu</label>
+              <input id="loginPass" type="password" placeholder="Nhập mật khẩu" autocomplete="current-password">
+            </div>
+
+            <div class="login-options">
+              <label class="remember">
+                <input id="rememberMe" type="checkbox"> Ghi nhớ đăng nhập
+              </label>
+              <a href="#" onclick="return false;">Quên mật khẩu?</a>
+            </div>
+
+            <button id="btnLogin">Đăng nhập</button>
+
+            <div class="footer">Vui lòng đăng nhập để tiếp tục</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP PAGE -->
+  <div id="appPage" style="display:none;">
+
+    <div class="sparkle"></div>
+
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <img src="https://bydthanhcong.vn/wp-content/uploads/2025/12/NGOC-ANH-LOGO-01.png" alt="Logo Ngọc Anh">
+        </div>
+
+        <div class="title">
+          <h1>HỆ THỐNG Ô TÔ XE MÁY NGỌC ANH</h1>
+          <p>TỰ TIN TRÊN MỌI HÀNH TRÌNH</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="chip">
+          <span>Trạng thái giải:</span>
+          <b id="prizeNow">—</b>
+        </div>
+        <button class="btn" id="btnFullscreen" title="F: Toàn màn hình">⛶ Toàn màn hình</button>
+        <button class="btn danger" id="btnReset" title="Xoá dữ liệu đã lưu (localStorage)">Reset</button>
+        <button class="btn" id="btnLogout" title="Đăng xuất">Đăng xuất</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Khu vực quay số</h2>
+          <small id="infoSmall">Sẵn sàng quay • <span class="kbd">Space</span> quay • <span class="kbd">F</span> fullscreen</small>
+        </div>
+
+        <div class="draw-area">
+          <div class="wheel-wrap">
+            <div class="pointer" aria-hidden="true"></div>
+
+            <div class="wheel" role="img" aria-label="Màn hình quay số">
+              <div class="ring" aria-hidden="true"></div>
+              <div style="text-align:center; padding:18px;">
+                <div class="digits" id="numDigits" aria-label="Số đang hiển thị">
+                  <div class="digit" id="d1">0</div>
+                  <div class="digit" id="d2">0</div>
+                  <div class="digit" id="d3">0</div>
+                </div>
+                <div class="sub" id="subDisplay">Nhấn “QUAY NGAY” để bắt đầu</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="statusbar">
+            <div class="pill"><span>Chưa trúng:</span> <strong id="remainCount">400</strong></div>
+            <div class="pill"><span>Đã xác nhận:</span> <strong id="confirmedCount">0</strong></div>
+            <div class="pill"><span>Tiến độ giải:</span> <strong id="prizeProgress">0/13</strong></div>
+          </div>
+
+          <div class="controls">
+            <button class="btn primary" id="btnSpin" title="Space: quay">QUAY NGAY</button>
+            <button class="btn" id="btnSound">🔊 Âm thanh: BẬT</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="panel-header">
+          <h2>Danh sách trúng thưởng</h2>
+          <small>Hiển thị sau khi bấm “Xác nhận”</small>
+        </div>
+
+        <div class="winners">
+          <div class="prizes" aria-label="Cơ cấu giải">
+            <div class="prize">
+              <div class="left">
+                <b>GIẢI NHẤT</b>
+                <small>Tiền mặt</small>
+              </div>
+              <div class="badge">5.000.000đ × 1</div>
+            </div>
+            <div class="prize">
+              <div class="left">
+                <b>GIẢI NHÌ</b>
+                <small>Tai nghe Airoods 4</small>
+              </div>
+              <div class="badge">× 7</div>
+            </div>
+            <div class="prize">
+              <div class="left">
+                <b>GIẢI BA</b>
+                <small>Vali cao cấp</small>
+              </div>
+              <div class="badge">× 5</div>
+            </div>
+          </div>
+
+          <div class="actions-row">
+            <button class="btn" id="btnExportCSV">Xuất CSV</button>
+            <button class="btn" id="btnCopyList">Copy danh sách</button>
+          </div>
+
+          <div>
+            <table aria-label="Bảng trúng thưởng">
+              <thead>
+                <tr>
+                  <th style="width:72px;">Số</th>
+                  <th>Tên</th>
+                  <th style="width:120px;">Giải</th>
+                  <th style="width:88px;">Giờ</th>
+                </tr>
+              </thead>
+              <tbody id="winnersBody">
+                <tr>
+                  <td colspan="4" class="muted">Chưa có ai trúng thưởng. Hãy bắt đầu quay 🎉</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="muted" style="margin-top:10px;">
+              * Dữ liệu lưu trên trình duyệt (localStorage). Bấm <b>Reset</b> để xoá. • Popup: <span class="kbd">Enter</span> xác nhận, <span class="kbd">Esc</span> hủy.
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Xác nhận trúng thưởng">
+      <div class="modal">
+        <div class="modal-inner">
+          <div class="modal-top">
+            <div>
+              <h3 id="modalTitle">🎉 Chúc mừng!</h3>
+              <div class="big" id="modalNumber">000</div>
+              <div class="meta" id="modalPrize">Giải: —</div>
+            </div>
+            <button class="xbtn" id="btnClose" title="Đóng (Esc)">✕</button>
+          </div>
+
+          <div class="form">
+            <div>
+              <label for="winnerName">Điền tên người trúng thưởng</label>
+              <input id="winnerName" type="text" placeholder="VD: Nguyễn Văn A" autocomplete="off" />
+            </div>
+            <div class="muted" id="modalHint">Bấm “Xác nhận” để lưu vào bảng. Bấm “Hủy” để quay tiếp.</div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn" id="btnCancel">Hủy (quay tiếp)</button>
+            <button class="btn primary" id="btnConfirm">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+      /********************
+       *  AUTH (LOGIN GUARD)
+       ********************/
+      const AUTH_KEY  = "ngoc_anh_auth_v1";
+
+      function isAuthedLocal(){
+        try{
+          const raw = localStorage.getItem(AUTH_KEY);
+          if(!raw) return false;
+          return JSON.parse(raw)?.ok === true;
+        }catch(e){ return false; }
+      }
+      function isAuthedSession(){
+        try{
+          const raw = sessionStorage.getItem(AUTH_KEY);
+          if(!raw) return false;
+          return JSON.parse(raw)?.ok === true;
+        }catch(e){ return false; }
+      }
+
+      function showApp(){
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("appPage").style.display = "block";
+      }
+      function showLogin(){
+        document.getElementById("loginPage").style.display = "block";
+        document.getElementById("appPage").style.display = "none";
+      }
+
+      function setAuth(remember){
+        const payload = { ok:true, t: Date.now() };
+        if(remember){
+          localStorage.setItem(AUTH_KEY, JSON.stringify(payload));
+          sessionStorage.removeItem(AUTH_KEY);
+        }else{
+          sessionStorage.setItem(AUTH_KEY, JSON.stringify(payload));
+          localStorage.removeItem(AUTH_KEY);
+        }
+      }
+      function clearAuth(){
+        localStorage.removeItem(AUTH_KEY);
+        sessionStorage.removeItem(AUTH_KEY);
+      }
+      function checkBootAuth(){
+        const ok = isAuthedLocal() || isAuthedSession();
+        if(ok) showApp(); else showLogin();
+      }
+
+      /********************
+       *  CONFIG / PRIZES
+       ********************/
+      const MAX_NUMBER = 400;
+      const PRIZE_QUEUE = [
+        { code: "GIAI_BA",   label: "Giải ba",   detail: "Vali cao cấp",       count: 5 },
+        { code: "GIAI_NHI",  label: "Giải nhì",  detail: "Tai nghe Airoods 4", count: 7 },
+        { code: "GIAI_NHAT", label: "Giải nhất", detail: "5.000.000đ",        count: 1 },
+      ];
+
+      const prizeOrder = [];
+      for (const p of PRIZE_QUEUE){
+        for (let i=0; i<p.count; i++) prizeOrder.push({ ...p, indexInPrize: i+1 });
+      }
+
+      /********************
+       *  GOOGLE SHEET API
+       ********************/
+      const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxzX9r0yWH8-2h8DOjelHYEMlpHWXS5jGwIlKIaf5Cs7TkaRc8YLooU409IHmYo2KWJ/exec";
+
+      async function fetchSheetNumber(prizeCode){
+        try{
+          const url = new URL(SHEET_API_URL);
+          url.searchParams.set("action", "prize");
+          url.searchParams.set("prize", prizeCode);
+          url.searchParams.set("_t", String(Date.now()));
+          const res = await fetch(url.toString(), { method: "GET" });
+          if(!res.ok) return null;
+          const data = await res.json().catch(()=>null);
+          if(!data || data.number === undefined || data.number === null) return null;
+
+          const n = Number(data.number);
+          if(!Number.isFinite(n)) return null;
+          const nn = Math.floor(n);
+          if(nn < 1 || nn > MAX_NUMBER) return null;
+
+          if(new Set(state.usedNumbers).has(nn)) return null;
+          return nn;
+        }catch(e){
+          return null;
+        }
+      }
+
+      /********************
+       *  STATE (persist)
+       ********************/
+      const LS_KEY = "ngoc-anh-lucky-draw-v2";
+      let state = loadState();
+
+      function defaultState(){
+        return {
+          usedNumbers: [],
+          winners: [],
+          prizeIndex: 0,
+          soundOn: true,
+        };
+      }
+
+      function loadState(){
+        try{
+          const raw = localStorage.getItem(LS_KEY);
+          if(!raw) return defaultState();
+          const parsed = JSON.parse(raw);
+          if(!Array.isArray(parsed.usedNumbers) || !Array.isArray(parsed.winners)) return defaultState();
+          if(typeof parsed.prizeIndex !== "number") parsed.prizeIndex = 0;
+          if(typeof parsed.soundOn !== "boolean") parsed.soundOn = true;
+          return parsed;
+        }catch(e){
+          return defaultState();
+        }
+      }
+
+      function saveState(){
+        localStorage.setItem(LS_KEY, JSON.stringify(state));
+      }
+
+      /********************
+       *  DOM refs
+       ********************/
+      const remainCount = document.getElementById("remainCount");
+      const confirmedCount = document.getElementById("confirmedCount");
+      const prizeProgress = document.getElementById("prizeProgress");
+      const prizeNow = document.getElementById("prizeNow");
+      const infoSmall = document.getElementById("infoSmall");
+      const subDisplay = document.getElementById("subDisplay");
+
+      const btnSpin = document.getElementById("btnSpin");
+      const btnReset = document.getElementById("btnReset");
+      const btnSound = document.getElementById("btnSound");
+      const btnFullscreen = document.getElementById("btnFullscreen");
+
+      const btnExportCSV = document.getElementById("btnExportCSV");
+      const btnCopyList = document.getElementById("btnCopyList");
+
+      const overlay = document.getElementById("overlay");
+      const modalNumber = document.getElementById("modalNumber");
+      const modalPrize = document.getElementById("modalPrize");
+      const modalTitle = document.getElementById("modalTitle");
+      const winnerName = document.getElementById("winnerName");
+      const btnConfirm = document.getElementById("btnConfirm");
+      const btnCancel = document.getElementById("btnCancel");
+      const btnClose = document.getElementById("btnClose");
+      const winnersBody = document.getElementById("winnersBody");
+
+      const confetti = document.getElementById("confetti");
+      const toast = document.getElementById("toast");
+
+      /********************
+       *  Helpers
+       ********************/
+      const pad3 = (n) => String(n).padStart(3, "0");
+      const nowHHMM = () => {
+        const d = new Date();
+        const hh = String(d.getHours()).padStart(2,"0");
+        const mm = String(d.getMinutes()).padStart(2,"0");
+        return `${hh}:${mm}`;
+      };
+
+      function setDigits(n){
+        const s = pad3(n);
+        document.getElementById("d1").textContent = s[0];
+        document.getElementById("d2").textContent = s[1];
+        document.getElementById("d3").textContent = s[2];
+      }
+
+      function availableNumbers(){
+        const used = new Set(state.usedNumbers);
+        const avail = [];
+        for(let i=1;i<=MAX_NUMBER;i++){
+          if(!used.has(i)) avail.push(i);
+        }
+        return avail;
+      }
+
+      function currentPrize(){
+        if(state.prizeIndex >= prizeOrder.length) return null;
+        return prizeOrder[state.prizeIndex];
+      }
+
+      function escapeHtml(str){
+        return String(str)
+          .replaceAll("&","&amp;")
+          .replaceAll("<","&lt;")
+          .replaceAll(">","&gt;")
+          .replaceAll('"',"&quot;")
+          .replaceAll("'","&#039;");
+      }
+
+      function showToast(msg){
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(()=> toast.classList.remove("show"), 2200);
+      }
+
+      function updateUI(){
+        const availCount = MAX_NUMBER - state.usedNumbers.length;
+        remainCount.textContent = availCount;
+        confirmedCount.textContent = state.winners.length;
+        prizeProgress.textContent = `${Math.min(state.prizeIndex, prizeOrder.length)}/${prizeOrder.length}`;
+
+        const p = currentPrize();
+        if(p){
+          prizeNow.textContent = `${p.label.toUpperCase()} (${p.detail})`;
+          subDisplay.textContent = `Đang quay cho: ${p.label} • ${p.detail}`;
+        }else{
+          prizeNow.textContent = `ĐÃ HẾT GIẢI 🎊`;
+          subDisplay.textContent = `Tất cả giải đã quay xong. Có thể Reset để quay lại.`;
+        }
+
+        btnSound.textContent = state.soundOn ? "🔊 Âm thanh: BẬT" : "🔇 Âm thanh: TẮT";
+        renderWinnersTable();
+        saveState();
+      }
+
+      function renderWinnersTable(){
+        if(state.winners.length === 0){
+          winnersBody.innerHTML = `<tr><td colspan="4" class="muted">Chưa có ai trúng thưởng. Hãy bắt đầu quay 🎉</td></tr>`;
+          return;
+        }
+        const rows = state.winners
+          .slice()
+          .reverse()
+          .map(w => `
+            <tr>
+              <td><b>${w.num}</b></td>
+              <td>${escapeHtml(w.name)}</td>
+              <td><b>${escapeHtml(w.prizeLabel)}</b></td>
+              <td class="muted">${escapeHtml(w.time)}</td>
+            </tr>
+          `).join("");
+        winnersBody.innerHTML = rows;
+      }
+
+      /********************
+       *  SOUND
+       ********************/
+      let audioCtx = null;
+      function beep(freq=880, duration=0.06, type="sine", gain=0.03){
+        if(!state.soundOn) return;
+        try{
+          audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+          const o = audioCtx.createOscillator();
+          const g = audioCtx.createGain();
+          o.type = type;
+          o.frequency.value = freq;
+          g.gain.value = gain;
+          o.connect(g);
+          g.connect(audioCtx.destination);
+          o.start();
+          o.stop(audioCtx.currentTime + duration);
+        }catch(e){}
+      }
+      function fanfare(){
+        if(!state.soundOn) return;
+        beep(880,.07,"triangle",.03);
+        setTimeout(()=>beep(1175,.07,"triangle",.03), 90);
+        setTimeout(()=>beep(1568,.10,"triangle",.035), 180);
+      }
+
+      /********************
+       *  CONFETTI
+       ********************/
+      function launchConfetti(intensity=70){
+        confetti.innerHTML = "";
+        confetti.classList.add("show");
+        const w = window.innerWidth;
+        const colors = [
+          "rgba(255,211,106,.95)",
+          "rgba(255,184,63,.95)",
+          "rgba(255,255,255,.80)",
+          "rgba(225,38,38,.80)",
+        ];
+        for(let i=0;i<intensity;i++){
+          const s = document.createElement("span");
+          const left = Math.random() * w;
+          const delay = Math.random() * 0.4;
+          const dur = 2.2 + Math.random() * 1.8;
+          const size = 8 + Math.random() * 10;
+          s.style.left = left + "px";
+          s.style.top = (-20 - Math.random()*200) + "px";
+          s.style.width = Math.max(6, size*0.7) + "px";
+          s.style.height = size + "px";
+          s.style.background = colors[Math.floor(Math.random()*colors.length)];
+          s.style.animationDuration = dur + "s";
+          s.style.animationDelay = delay + "s";
+          confetti.appendChild(s);
+        }
+        setTimeout(()=> confetti.classList.remove("show"), 4200);
+      }
+
+      /********************
+       *  FULLSCREEN
+       ********************/
+      function isFullscreen(){
+        return document.fullscreenElement || document.webkitFullscreenElement;
+      }
+      async function toggleFullscreen(){
+        try{
+          if(!isFullscreen()){
+            await (document.documentElement.requestFullscreen?.() ||
+                   document.documentElement.webkitRequestFullscreen?.());
+            btnFullscreen.textContent = "⛶ Thoát toàn màn hình";
+          }else{
+            await (document.exitFullscreen?.() || document.webkitExitFullscreen?.());
+            btnFullscreen.textContent = "⛶ Toàn màn hình";
+          }
+        }catch(e){
+          showToast("Trình duyệt không hỗ trợ toàn màn hình.");
+        }
+      }
+      document.addEventListener("fullscreenchange", () => {
+        btnFullscreen.textContent = isFullscreen() ? "⛶ Thoát toàn màn hình" : "⛶ Toàn màn hình";
+      });
+
+      /********************
+       *  CSV / COPY
+       ********************/
+      function winnersAsCSV(){
+        const header = ["So","Ten","Giai","Gio"];
+        const lines = [header.join(",")];
+        for(const w of state.winners){
+          const row = [w.num, w.name, w.prizeLabel, w.time].map(v => {
+            const s = String(v ?? "");
+            if(/[",\n]/.test(s)) return `"${s.replaceAll('"','""')}"`;
+            return s;
+          });
+          lines.push(row.join(","));
+        }
+        return lines.join("\n");
+      }
+
+      function downloadText(filename, text, mime="text/plain;charset=utf-8"){
+        const blob = new Blob([text], {type:mime});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      async function copyText(text){
+        try{
+          await navigator.clipboard.writeText(text);
+          return true;
+        }catch(e){
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          let ok = false;
+          try{ ok = document.execCommand("copy"); }catch(err){ ok = false; }
+          ta.remove();
+          return ok;
+        }
+      }
+
+      function winnersAsPrettyText(){
+        if(state.winners.length === 0) return "Chưa có ai trúng thưởng.";
+        const lines = [];
+        lines.push("DANH SÁCH TRÚNG THƯỞNG - HỆ THỐNG Ô TÔ XE MÁY NGỌC ANH");
+        lines.push("-----------------------------------------------------");
+        state.winners.forEach((w, i) => {
+          lines.push(`${String(i+1).padStart(2,"0")}. Số ${w.num} | ${w.name} | ${w.prizeLabel} | ${w.time}`);
+        });
+        return lines.join("\n");
+      }
+
+      /********************
+       *  SPIN ENGINE
+       ********************/
+      let spinning = false;
+      let pendingNumber = null;
+      let pendingPrize = null;
+
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+      function pickRandomAvailable(){
+        const avail = availableNumbers();
+        if(avail.length === 0) return null;
+        const idx = Math.floor(Math.random() * avail.length);
+        return avail[idx];
+      }
+
+      async function spin(){
+        const p = currentPrize();
+        if(!p){
+          showToast("Đã hết giải. Bấm Reset nếu muốn quay lại.");
+          return;
+        }
+        const avail = availableNumbers();
+        if(avail.length === 0){
+          showToast("Đã hết số (001–400).");
+          return;
+        }
+        if(spinning) return;
+
+        spinning = true;
+        btnSpin.disabled = true;
+        infoSmall.textContent = "Đang quay…";
+        subDisplay.textContent = `Đang quay cho: ${p.label} • ${p.detail}`;
+
+        const sheetNum = await fetchSheetNumber(p.code);
+        const finalNum = sheetNum ?? pickRandomAvailable();
+
+        const duration = 5200 + Math.random()*1200;
+        const start = performance.now();
+        let lastTick = 0;
+
+        function frame(now){
+          const t = Math.min(1, (now - start) / duration);
+          const eased = easeOutCubic(t);
+
+          const interval = 20 + eased * 180;
+          if(now - lastTick > interval){
+            lastTick = now;
+            const r = pickRandomAvailable();
+            setDigits(r ?? 0);
+            if(t < 0.95) beep(520 + Math.random()*420, 0.03, "sine", 0.02);
+          }
+
+          if(t < 1){
+            requestAnimationFrame(frame);
+          }else{
+            setDigits(finalNum);
+            pendingNumber = finalNum;
+            pendingPrize = p;
+            spinning = false;
+            btnSpin.disabled = false;
+            infoSmall.textContent = "Đã dừng!";
+            openModal(finalNum, p);
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+
+      /********************
+       *  MODAL
+       ********************/
+      function openModal(num, prize){
+        const numStr = pad3(num);
+        modalNumber.textContent = numStr;
+        modalPrize.textContent = `Giải: ${prize.label} • ${prize.detail}`;
+
+        const isFirst = prize.code === "GIAI_NHAT";
+        modalTitle.textContent = isFirst ? "🏆 CHÚC MỪNG GIẢI NHẤT!" : "🎉 CHÚC MỪNG!";
+        launchConfetti(isFirst ? 120 : 80);
+        fanfare();
+
+        winnerName.value = "";
+        overlay.classList.add("show");
+        setTimeout(()=> winnerName.focus(), 80);
+      }
+
+      function closeModal(){ overlay.classList.remove("show"); }
+
+      function cancelModal(){
+        pendingNumber = null;
+        pendingPrize = null;
+        closeModal();
+        showToast("Đã hủy xác nhận. Có thể quay tiếp.");
+      }
+
+      function confirmWinner(){
+        const name = winnerName.value.trim();
+        if(!pendingNumber || !pendingPrize){
+          showToast("Không có kết quả để xác nhận.");
+          closeModal();
+          return;
+        }
+        if(!name){
+          winnerName.focus();
+          showToast("Vui lòng nhập tên người trúng thưởng.");
+          return;
+        }
+
+        const numStr = pad3(pendingNumber);
+
+        state.usedNumbers.push(pendingNumber);
+        state.winners.push({
+          num: numStr,
+          name,
+          prizeLabel: pendingPrize.label,
+          time: nowHHMM(),
+        });
+
+        state.prizeIndex = Math.min(state.prizeIndex + 1, prizeOrder.length);
+
+        pendingNumber = null;
+        pendingPrize = null;
+
+        closeModal();
+        updateUI();
+        launchConfetti(60);
+        showToast(`Đã xác nhận: ${name} • Số ${numStr}`);
+      }
+
+      /********************
+       *  RESET
+       ********************/
+      function resetAll(){
+        const ok = confirm("Reset sẽ xoá toàn bộ danh sách trúng thưởng và số đã xác nhận. Bạn chắc chắn?");
+        if(!ok) return;
+        state = defaultState();
+        saveState();
+        setDigits(0);
+        infoSmall.textContent = "Sẵn sàng quay";
+        showToast("Đã reset dữ liệu.");
+        updateUI();
+      }
+
+      /********************
+       *  LOGIN EVENTS (FIXED)
+       ********************/
+      const btnLogin = document.getElementById("btnLogin");
+      const loginUser = document.getElementById("loginUser");
+      const loginPass = document.getElementById("loginPass");
+      const rememberMe = document.getElementById("rememberMe");
+      const loginError = document.getElementById("loginError");
+
+      async function tryLogin() {
+        const u = (loginUser.value || "").trim();
+        const p = (loginPass.value || "").trim();
+
+        if (!u || !p) {
+          loginError.textContent = "Vui lòng nhập tài khoản và mật khẩu.";
+          loginError.style.display = "block";
+          return;
+        }
+
+        try {
+          loginError.style.display = "none";
+          btnLogin.disabled = true;
+          btnLogin.textContent = "Đang kiểm tra...";
+
+          // IMPORTANT: khớp với Apps Script của bạn -> action=auth
+          const url = `${SHEET_API_URL}?action=auth&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}&ts=${Date.now()}`;
+          const res = await fetch(url, { method:"GET" });
+          const data = await res.json().catch(()=>null);
+
+          if (!data || data.ok !== true) {
+            loginError.textContent = "Sai tài khoản hoặc mật khẩu.";
+            loginError.style.display = "block";
+            return;
+          }
+
+          setAuth(rememberMe.checked);
+          showApp();
+
+        } catch (err) {
+          loginError.textContent = "Không kết nối được máy chủ đăng nhập. Kiểm tra link Apps Script / quyền triển khai.";
+          loginError.style.display = "block";
+        } finally {
+          btnLogin.disabled = false;
+          btnLogin.textContent = "Đăng nhập";
+        }
+      }
+
+      btnLogin.addEventListener("click", tryLogin);
+      loginPass.addEventListener("keydown", (e)=>{ if(e.key === "Enter") tryLogin(); });
+      loginUser.addEventListener("keydown", (e)=>{ if(e.key === "Enter") tryLogin(); });
+
+      const btnLogout = document.getElementById("btnLogout");
+      btnLogout.addEventListener("click", () => {
+        const ok = confirm("Đăng xuất khỏi hệ thống?");
+        if(!ok) return;
+        clearAuth();
+        showLogin();
+      });
+
+      /********************
+       *  EVENTS
+       ********************/
+      btnSpin.addEventListener("click", spin);
+      btnReset.addEventListener("click", resetAll);
+
+      btnSound.addEventListener("click", () => {
+        state.soundOn = !state.soundOn;
+        updateUI();
+        showToast(state.soundOn ? "Đã bật âm thanh" : "Đã tắt âm thanh");
+      });
+
+      btnFullscreen.addEventListener("click", toggleFullscreen);
+
+      btnConfirm.addEventListener("click", confirmWinner);
+      btnCancel.addEventListener("click", cancelModal);
+      btnClose.addEventListener("click", cancelModal);
+
+      overlay.addEventListener("click", (e) => {
+        if(e.target === overlay) cancelModal();
+      });
+
+      btnExportCSV.addEventListener("click", () => {
+        const csv = winnersAsCSV();
+        const ts = new Date();
+        const y = ts.getFullYear();
+        const m = String(ts.getMonth()+1).padStart(2,"0");
+        const d = String(ts.getDate()).padStart(2,"0");
+        downloadText(`ngoc-anh-trung-thuong-${y}${m}${d}.csv`, csv, "text/csv;charset=utf-8");
+        showToast("Đã xuất CSV.");
+      });
+
+      btnCopyList.addEventListener("click", async () => {
+        const text = winnersAsPrettyText();
+        const ok = await copyText(text);
+        showToast(ok ? "Đã copy danh sách." : "Copy thất bại (trình duyệt chặn).");
+      });
+
+      document.addEventListener("keydown", (e) => {
+        const inModal = overlay.classList.contains("show");
+        const tag = (document.activeElement?.tagName || "").toLowerCase();
+        const typing = tag === "input" || tag === "textarea";
+
+        if(e.key === "Escape" && inModal){
+          e.preventDefault();
+          cancelModal();
+          return;
+        }
+
+        if(e.key === "Enter" && inModal){
+          e.preventDefault();
+          confirmWinner();
+          return;
+        }
+
+        if((e.key === "f" || e.key === "F") && !typing){
+          e.preventDefault();
+          toggleFullscreen();
+          return;
+        }
+
+        if(e.code === "Space" && !typing && !inModal){
+          e.preventDefault();
+          spin();
+        }
+      });
+
+      /********************
+       *  INIT
+       ********************/
+      checkBootAuth();
+      setDigits(0);
+      updateUI();
+    </script>
+
+  </div>
+</body>
+</html>
