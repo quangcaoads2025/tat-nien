@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Ngọc Anh Chương Trình Tất Niên</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KWF3FQ2G');</script>
+<!-- End Google Tag Manager -->
   <style>
     :root{
       --bg1:#c80b23;
@@ -28,7 +34,7 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      overflow-x:hidden; /* chặn tràn ngang */
+      overflow-x:hidden;
       background:
         radial-gradient(900px 520px at 12% 12%, rgba(255,241,201,.85), transparent 58%),
         radial-gradient(800px 520px at 88% 18%, rgba(255,211,106,.45), transparent 60%),
@@ -122,7 +128,7 @@
       backdrop-filter: blur(5px);
       overflow:hidden;
       display:flex; flex-direction:column;
-      min-width: 0; /* tránh tràn */
+      min-width: 0;
     }
 
     .panel-header{
@@ -218,7 +224,7 @@
       gap: 10px;
     }
     .prize-info b{ display:block; font-size: 13px; color: var(--gold); }
-    .prize-info small{ font-size: 11px; opacity: 0.85; color: var(--muted); }
+    .prize-info small{ font-size: 13px; color: #ffffff; font-weight: 700; opacity: 1; color: var(--muted); }
     .prize-badge{
       background: var(--gold); color: #000; font-weight: 950;
       padding: 2px 8px; border-radius: 10px; font-size: 11px;
@@ -228,7 +234,6 @@
     .actions-row{ display:flex; gap:8px; flex-wrap: wrap; }
     .actions-row .btn{ flex: 1 1 140px; text-align:center; }
 
-    /* ========= BẢNG: GỌN NHƯ ẢNH 2 ========= */
     .table-responsive{
       width: 100%;
       overflow: hidden !important;
@@ -265,7 +270,6 @@
     th.col-prize, td.col-prize{ width: 90px; }
     th.col-time, td.col-time{ width: 70px; }
 
-    /* MODAL */
     .overlay{
       position:fixed; inset:0; background: rgba(0,0,0,.82);
       backdrop-filter: blur(8px);
@@ -335,9 +339,6 @@
     .modal-btns{ display:flex; gap:10px; justify-content: flex-end; flex-wrap: wrap; }
     .modal-btns .btn{ flex: 1 1 160px; text-align:center; }
 
-    /* =========================
-       LOGIN (NEW UI LIKE IMAGE)
-       ========================= */
     #loginPage{
       position:fixed; inset:0; z-index: 3000;
       background:#fff;
@@ -352,7 +353,6 @@
       width:100%;
     }
 
-    /* Left red */
     .na-login-left{
       width:55%;
       background:#d32f2f;
@@ -416,7 +416,6 @@
       display:block;
     }
 
-    /* Right white form */
     .na-login-right{
       width:45%;
       background:#fff;
@@ -497,7 +496,6 @@
     }
     .na-btn:active{ transform: scale(.98); }
 
-    /* Use the same #loginError */
     #loginError{
       display:none;
       background: #ffebee;
@@ -510,7 +508,6 @@
       margin: 0 0 14px;
     }
 
-    /* Responsive for login */
     @media (max-width: 900px){
       .na-login-container{ flex-direction: column; }
       .na-login-left{
@@ -530,7 +527,6 @@
       .na-grid{ display:none; }
     }
 
-    /* CONFETTI + TOAST */
     .confetti{ position: fixed; inset: 0; pointer-events: none; z-index: 2500; display: none; }
     .confetti.show{ display:block; }
     .confetti span{
@@ -559,7 +555,6 @@
     }
     .toast.show{ opacity: 1; }
 
-    /* RESPONSIVE APP */
     @media (max-width: 900px){
       main{ grid-template-columns: 1fr; }
     }
@@ -578,10 +573,12 @@
 </head>
 
 <body>
-  <!-- LOGIN (REPLACED UI) -->
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWF3FQ2G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div id="loginPage">
     <div class="na-login-container">
-      <!-- LEFT -->
       <div class="na-login-left">
         <div class="na-left-wrap">
           <h1>HỆ THỐNG Ô TÔ - XE MÁY NGỌC ANH</h1>
@@ -594,11 +591,13 @@
             <div class="na-card"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/4.jpg" alt=""></div>
             <div class="na-card"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/5.jpg" alt=""></div>
             <div class="na-card"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/6.jpg" alt=""></div>
+            <div class="na-card"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/7.jpg" alt=""></div>
+            <div class="na-card"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/8.jpg" alt=""></div>
+            <div class="na-card"><img src="https://bydthanhcong.vn/wp-content/uploads/2026/02/9.jpg" alt=""></div>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT -->
       <div class="na-login-right">
         <div class="na-form">
           <img class="na-logo" src="https://bydthanhcong.vn/wp-content/uploads/2025/12/NGOC-ANH-LOGO-01.png" alt="Logo">
@@ -629,7 +628,6 @@
     </div>
   </div>
 
-  <!-- APP -->
   <div id="appPage" style="display:none;">
     <div class="sparkle"></div>
 
@@ -639,7 +637,7 @@
           <img src="https://bydthanhcong.vn/wp-content/uploads/2025/12/NGOC-ANH-LOGO-01.png" alt="Logo">
         </div>
         <div class="title">
-          <h1>Ngọc Anh Auto</h1>
+          <h1>HỆ THỐNG Ô TÔ - XE MÁY NGỌC ANH</h1>
           <p>TỰ TIN TRÊN MỌI HÀNH TRÌNH</p>
         </div>
       </div>
@@ -734,7 +732,6 @@
       </aside>
     </main>
 
-    <!-- MODAL -->
     <div class="overlay" id="overlay" role="dialog" aria-modal="true">
       <div class="modal">
         <div class="modal-top">
@@ -760,21 +757,14 @@
       </div>
     </div>
 
-    <!-- FX -->
     <div class="confetti" id="confetti" aria-hidden="true"></div>
     <div class="toast" id="toast">Thông báo</div>
   </div>
 
   <script>
-    /********************
-     *  CONFIG
-     ********************/
     const MAX_NUMBER = 400;
-
-    // Apps Script URL của bạn
     const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxzX9r0yWH8-2h8DOjelHYEMlpHWXS5jGwIlKIaf5Cs7TkaRc8YLooU409IHmYo2KWJ/exec";
 
-    // Thứ tự quay: BA (5) -> NHÌ (7) -> NHẤT (1)
     const PRIZE_QUEUE = [
       { code:"GIAI_BA",   label:"Giải Ba",   detail:"Vali cao cấp",       count:5 },
       { code:"GIAI_NHI",  label:"Giải Nhì",  detail:"Tai nghe Airpods 4", count:7 },
@@ -786,10 +776,7 @@
       for(let i=0;i<p.count;i++) prizeOrder.push({ ...p, indexInPrize: i+1 });
     }
 
-    /********************
-     *  AUTH
-     ********************/
-    const AUTH_KEY = "ngoc_anh_auth_v1"; // session/local
+    const AUTH_KEY = "ngoc_anh_auth_v1";
     function isAuthedLocal(){
       try{ return JSON.parse(localStorage.getItem(AUTH_KEY) || "{}").ok === true; }catch(e){ return false; }
     }
@@ -811,9 +798,6 @@
       sessionStorage.removeItem(AUTH_KEY);
     }
 
-    /********************
-     *  STATE (persist)
-     ********************/
     const LS_KEY = "ngoc_anh_luckydraw_v3";
     function defaultState(){
       return { usedNumbers:[], winners:[], prizeIndex:0, soundOn:true };
@@ -835,9 +819,6 @@
 
     let state = loadState();
 
-    /********************
-     *  DOM
-     ********************/
     const els = {
       loginPage: document.getElementById("loginPage"),
       appPage: document.getElementById("appPage"),
@@ -890,9 +871,6 @@
       els.appPage.style.display = "none";
     }
 
-    /********************
-     *  HELPERS
-     ********************/
     const pad3 = (n) => String(n).padStart(3,"0");
     const nowHHMM = () => {
       const d = new Date();
@@ -981,9 +959,6 @@
       els.winnersBody.innerHTML = rows;
     }
 
-    /********************
-     *  SOUND
-     ********************/
     let audioCtx = null;
     function beep(freq=880, duration=0.05, type="sine", gain=0.03){
       if(!state.soundOn) return;
@@ -1007,9 +982,6 @@
       setTimeout(()=>beep(1568,.10,"triangle",.035), 180);
     }
 
-    /********************
-     *  CONFETTI
-     ********************/
     function launchConfetti(intensity=70){
       els.confetti.innerHTML = "";
       els.confetti.classList.add("show");
@@ -1033,9 +1005,6 @@
       setTimeout(()=> els.confetti.classList.remove("show"), 3800);
     }
 
-    /********************
-     *  GOOGLE SHEET (PRIZE NUMBER)
-     ********************/
     async function fetchSheetNumber(prizeCode){
       try{
         const url = new URL(SHEET_API_URL);
@@ -1057,9 +1026,6 @@
       }
     }
 
-    /********************
-     *  MODAL
-     ********************/
     let pendingNumber = null;
     let pendingPrize = null;
 
@@ -1118,9 +1084,6 @@
       showToast(`Đã lưu: ${name} • Số ${numStr}`);
     }
 
-    /********************
-     *  SPIN
-     ********************/
     let spinning = false;
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -1173,9 +1136,6 @@
       requestAnimationFrame(frame);
     }
 
-    /********************
-     *  CSV / COPY
-     ********************/
     function winnersAsCSV(){
       const header = ["So","Ten","Giai","Gio"];
       const lines = [header.join(",")];
@@ -1232,9 +1192,6 @@
       return lines.join("\n");
     }
 
-    /********************
-     *  FULLSCREEN
-     ********************/
     function isFullscreen(){ return document.fullscreenElement || document.webkitFullscreenElement; }
     async function toggleFullscreen(){
       try{
@@ -1248,9 +1205,6 @@
       }
     }
 
-    /********************
-     *  RESET
-     ********************/
     function resetAll(){
       const ok = confirm("Reset sẽ xoá toàn bộ danh sách trúng thưởng và số đã xác nhận. Bạn chắc chắn?");
       if(!ok) return;
@@ -1261,9 +1215,6 @@
       showToast("Đã reset dữ liệu.");
     }
 
-    /********************
-     *  LOGIN
-     ********************/
     async function tryLogin(){
       const u = (els.loginUser.value || "").trim();
       const p = (els.loginPass.value || "").trim();
@@ -1302,9 +1253,6 @@
       }
     }
 
-    /********************
-     *  EVENTS
-     ********************/
     els.btnLogin.addEventListener("click", tryLogin);
     els.loginPass.addEventListener("keydown", (e)=>{ if(e.key==="Enter") tryLogin(); });
     els.loginUser.addEventListener("keydown", (e)=>{ if(e.key==="Enter") tryLogin(); });
@@ -1375,9 +1323,6 @@
       }
     });
 
-    /********************
-     *  BOOT
-     ********************/
     function boot(){
       const ok = isAuthedLocal() || isAuthedSession();
       if(ok) showApp(); else showLogin();
