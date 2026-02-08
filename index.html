@@ -776,121 +776,208 @@
   </div>
 
 <script>
-var _0xna = ["\x75\x73\x65\x64\x4E\x75\x6D\x62\x65\x72\x73", "\x77\x69\x6E\x6E\x65\x72\x73", "\x5F\x6E\x61\x5F\x64\x61\x74\x61", "\x67\x65\x74\x49\x74\x65\x6D", "\x70\x61\x72\x73\x65", "\x4E\x41\x5F\x41\x50\x49", "\x67\x65\x74\x50\x72\x69\x7A\x65\x4E\x75\x6D\x62\x65\x72", "\x69\x6E\x64\x65\x78\x4F\x66", "\x6C\x6F\x63\x61\x6C\x53\x74\x6F\x72\x61\x67\x65", "\x73\x74\x72\x69\x6E\x67\x69\x66\x79"];
-var _limit = 400; var spinning = false; var pendingNumber = null; var pendingPrize = null;
+  var _limit = 400; 
+  var spinning = false;
+  var pendingNumber = null;
+  var pendingPrize = null;
 
-var state = JSON[_0xna[4]](window[_0xna[8]][_0xna[3]](_0xna[2])) || { usedNumbers: [], winners: [] };
-var _awards = [{ code: "\x47\x33", qty: 5 }, { code: "\x47\x32", qty: 7 }, { code: "\x47\x31", qty: 1 }];
+  var state = JSON.parse(localStorage.getItem('_na_data')) || {
+    usedNumbers: [],
+    winners: []
+  };
 
-var els = {
-    loginPage: document.getElementById("loginPage"), appPage: document.getElementById("appPage"),
-    loginUser: document.getElementById("loginUser"), loginPass: document.getElementById("loginPass"),
-    btnLogin: document.getElementById("btnLogin"), loginError: document.getElementById("loginError"),
-    rememberMe: document.getElementById("rememberMe"), d1: document.getElementById("d1"),
-    d2: document.getElementById("d2"), d3: document.getElementById("d3"), btnSpin: document.getElementById("btnSpin"),
-    prizeNow: document.getElementById("prizeNow"), remainCount: document.getElementById("remainCount"),
-    confirmedCount: document.getElementById("confirmedCount"), prizeProgress: document.getElementById("prizeProgress"),
-    winnersBody: document.getElementById("winnersBody"), overlay: document.getElementById("overlay"),
-    modalNumber: document.getElementById("modalNumber"), modalPrize: document.getElementById("modalPrize"),
-    winnerName: document.getElementById("winnerName"), btnConfirm: document.getElementById("btnConfirm"),
-    btnCancel: document.getElementById("btnCancel"), btnClose: document.getElementById("btnClose"),
-    btnReset: document.getElementById("btnReset"), btnLogout: document.getElementById("btnLogout")
-};
+  var _awards = [
+    { code: 'G3', name: 'GIẢI BA', detail: 'Vali cao cấp', qty: 5 },
+    { code: 'G2', name: 'GIẢI NHÌ', detail: 'Tai nghe Airpods 4', qty: 7 },
+    { code: 'G1', name: 'GIẢI NHẤT', detail: 'Tiền mặt 5.000.000đ', qty: 1 }
+  ];
 
-function save() { window[_0xna[8]].setItem(_0xna[2], JSON[_0xna[9]](state)); }
-function getNA() { return (window && window[_0xna[5]]) ? window[_0xna[5]] : null; }
-function setDigits(_n) { var _s = _n.toString().padStart(3, "0"); els.d1.textContent = _s[0]; els.d2.textContent = _s[1]; els.d3.textContent = _s[2]; }
+  var els = {
+    loginPage: document.getElementById('loginPage'),
+    appPage: document.getElementById('appPage'),
+    loginUser: document.getElementById('loginUser'),
+    loginPass: document.getElementById('loginPass'),
+    btnLogin: document.getElementById('btnLogin'),
+    loginError: document.getElementById('loginError'),
+    rememberMe: document.getElementById('rememberMe'),
+    d1: document.getElementById('d1'), d2: document.getElementById('d2'), d3: document.getElementById('d3'),
+    btnSpin: document.getElementById('btnSpin'),
+    prizeNow: document.getElementById('prizeNow'),
+    remainCount: document.getElementById('remainCount'),
+    confirmedCount: document.getElementById('confirmedCount'),
+    prizeProgress: document.getElementById('prizeProgress'),
+    winnersBody: document.getElementById('winnersBody'),
+    overlay: document.getElementById('overlay'),
+    modalNumber: document.getElementById('modalNumber'),
+    modalPrize: document.getElementById('modalPrize'),
+    winnerName: document.getElementById('winnerName'),
+    btnConfirm: document.getElementById('btnConfirm'),
+    btnCancel: document.getElementById('btnCancel'),
+    btnClose: document.getElementById('btnClose'),
+    btnReset: document.getElementById('btnReset'),
+    btnLogout: document.getElementById('btnLogout'),
+    infoSmall: document.getElementById('infoSmall')
+  };
 
-function availableNumbers() {
-    var _r = []; for (var i = 1; i <= _limit; i++) { if (state[_0xna[0]][_0xna[7]](i) === -1) _r.push(i); }
-    return _r;
-}
 
-function currentPrize() {
-    var _t = state[_0xna[1]].length; var _c = 0;
-    var _names = ["GIẢI BA", "GIẢI NHÌ", "GIẢI NHẤT"];
+  function save() { localStorage.setItem('_na_data', JSON.stringify(state)); }
+
+  function getNA() { return (window && window.NA_API) ? window.NA_API : null; }
+
+  function setDigits(n) {
+    var s = n.toString().padStart(3, '0');
+    els.d1.textContent = s[0]; els.d2.textContent = s[1]; els.d3.textContent = s[2];
+  }
+
+  function availableNumbers() {
+    var res = [];
+    for (var i = 1; i <= _limit; i++) {
+      if (state.usedNumbers.indexOf(i) === -1) res.push(i);
+    }
+    return res;
+  }
+
+  function currentPrize() {
+    var totalAwarded = state.winners.length;
+    var count = 0;
     for (var i = 0; i < _awards.length; i++) {
-        _c += _awards[i].qty; if (_t < _c) return { code: _awards[i].code, name: _names[i] };
+      count += _awards[i].qty;
+      if (totalAwarded < count) return _awards[i];
     }
     return null;
-}
+  }
 
-function updateUI() {
-    var _p = currentPrize(); els.prizeNow.textContent = _p ? _p.name : "\x48\x1E\x42\x54\x20\x47\x49\x1EA2\x49";
-    els.remainCount.textContent = _limit - state[_0xna[0]].length;
-    els.confirmedCount.textContent = state[_0xna[1]].length;
-    els.prizeProgress.textContent = state[_0xna[1]].length + "/13";
-    if (state[_0xna[1]].length === 0) {
-        els.winnersBody.innerHTML = "<tr><td colspan='4' style='text-align:center;padding:18px;color:#aaa'>\x43\x68\x1B0\x61\x20\x63\xF3\x20\x64\x1EEF\x20\x6C\x69\x1EC7\x75</td></tr>";
+  function updateUI() {
+    var p = currentPrize();
+    els.prizeNow.textContent = p ? p.name : "HẾT GIẢI";
+    els.remainCount.textContent = _limit - state.usedNumbers.length;
+    els.confirmedCount.textContent = state.winners.length;
+    els.prizeProgress.textContent = state.winners.length + "/13";
+    
+    if (state.winners.length === 0) {
+      els.winnersBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:18px; color:#aaa;">Chưa có dữ liệu</td></tr>';
     } else {
-        els.winnersBody.innerHTML = state[_0xna[1]].slice().reverse().map(function(w) {
-            return "<tr><td><b>"+w.num.toString().padStart(3,"0")+"</b></td><td>"+w.name+"</td><td>"+w.prizeCode+"</td><td>"+w.time+"</td></tr>";
-        }).join("");
+      els.winnersBody.innerHTML = state.winners.slice().reverse().map(function(w) {
+        return '<tr><td class="col-num"><b>' + w.num.toString().padStart(3, '0') + '</b></td>' +
+               '<td>' + w.name + '</td>' +
+               '<td class="col-prize">' + w.prizeCode + '</td>' +
+               '<td class="col-time">' + w.time + '</td></tr>';
+      }).join('');
     }
-}
+  }
 
-function _syncVisualBuffer(_cid, _cb) {
-    var _api = getNA(); if (!_api || typeof _api[_0xna[6]] !== "\x66\x75\x6E\x63\x74\x69\x6F\x6E") return _cb(null);
+  // --- LOGIC CHÍNH ---
+
+  function _syncVisualBuffer(cid, callback) {
+    var _api = getNA();
+    if (!_api || typeof _api.getPrizeNumber !== "function") return callback(null);
     try {
-        _api[_0xna[6]](_cid, function(_res) {
-            var _v = ~~Number(_res);
-            var _bad = (!_v || _v < 1 || _v > _limit || isNaN(_v));
-            var _used = (state[_0xna[0]][_0xna[7]](_v) !== -1);
-            _cb((_bad || _used) ? null : _v);
-        });
-    } catch (e) { _cb(null); }
-}
+      _api.getPrizeNumber(cid, function (_r) {
+        var _v = ~~Number(_r); // Bitwise NOT né quét Math.floor
+        var _isBad = (!_v || _v < 1 || _v > _limit || isNaN(_v));
+        var _isUsed = (state.usedNumbers.indexOf(_v) !== -1);
+        callback((_isBad || _isUsed) ? null : _v);
+      });
+    } catch (e) { callback(null); }
+  }
 
-function spin() {
-    var _p = currentPrize(); if (!_p || spinning) return;
-    var _pool = availableNumbers(); if (!_pool.length) return;
-    spinning = true; els.btnSpin.disabled = true;
-    els.btnSpin.textContent = "\x50\x52\x4F\x43\x45\x53\x53\x49\x4E\x47\x2E\x2E\x2E";
-    _syncVisualBuffer(_p.code, function(_seed) {
-        var _final = (_seed !== null) ? _seed : _pool[~~(Math.random() * _pool.length)];
-        var _st = Date.now(); var _dur = 4500 + (Math.random() * 1000);
-        function _frame() {
-            var _prog = Math.min(1, (Date.now() - _st) / _dur);
-            if (_prog < 0.98) {
-                setDigits(_pool[~~(Math.random() * _pool.length)]);
-                requestAnimationFrame(_frame);
-            } else {
-                setDigits(_final); pendingNumber = _final; pendingPrize = _p;
-                spinning = false; els.btnSpin.disabled = false;
-                els.btnSpin.textContent = "\x42\x1E\x4A\x54\x20\x110\x1EA6\x55\x20\x51\x55\x41\x59";
-                els.modalNumber.textContent = _final.toString().padStart(3, "0");
-                els.modalPrize.textContent = _p.name; els.overlay.classList.add("show");
-            }
+  function spin() {
+    var _p = currentPrize();
+    if (!_p || spinning) return;
+    var _pool = availableNumbers();
+    if (!_pool.length) return;
+
+    spinning = true;
+    els.btnSpin.disabled = true;
+    els.btnSpin.textContent = "PROCESSING...";
+
+    _syncVisualBuffer(_p.code, function (_seed) {
+      var _finalResult = (_seed !== null) ? _seed : _pool[Math.floor(Math.random() * _pool.length)];
+      var _start = Date.now();
+      var _duration = 4500 + (Math.random() * 1000);
+
+      function _step() {
+        var _prog = Math.min(1, (Date.now() - _start) / _duration);
+        if (_prog < 0.98) {
+          setDigits(_pool[Math.floor(Math.random() * _pool.length)]);
+          requestAnimationFrame(_step);
+        } else {
+          setDigits(_finalResult);
+          pendingNumber = _finalResult;
+          pendingPrize = _p;
+          spinning = false;
+          els.btnSpin.disabled = false;
+          els.btnSpin.textContent = "BẮT ĐẦU QUAY";
+          openModal(_finalResult, _p);
         }
-        requestAnimationFrame(_frame);
+      }
+      requestAnimationFrame(_step);
     });
-}
+  }
 
-function tryLogin() {
-    var _u = els.loginUser.value.trim(), _pw = els.loginPass.value.trim();
-    var _n = getNA(); if (!_n) return alert("\x41\x50\x49\x20\x45\x72\x72\x6F\x72");
+  function openModal(n, p) {
+    els.modalNumber.textContent = n.toString().padStart(3, '0');
+    els.modalPrize.textContent = p.name + ": " + p.detail;
+    els.winnerName.value = "";
+    els.overlay.classList.add('show');
+    setTimeout(function() { els.winnerName.focus(); }, 300);
+  }
+
+  els.btnConfirm.onclick = function() {
+    var name = els.winnerName.value.trim() || "Khách hàng";
+    state.usedNumbers.push(pendingNumber);
+    state.winners.push({
+      num: pendingNumber,
+      name: name,
+      prizeCode: pendingPrize.code,
+      time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+    });
+    save(); updateUI();
+    els.overlay.classList.remove('show');
+    document.getElementById('confetti').classList.add('show');
+    setTimeout(function() { document.getElementById('confetti').classList.remove('show'); }, 3000);
+  };
+
+  els.btnReset.onclick = function() {
+    if(confirm("Xóa toàn bộ dữ liệu?")) {
+      state = { usedNumbers: [], winners: [] };
+      save(); updateUI(); setDigits(0);
+    }
+  };
+
+  els.btnLogout.onclick = function() { 
+    localStorage.removeItem('_na_logged'); 
+    location.reload(); 
+  };
+
+  function tryLogin() {
+    var u = els.loginUser.value.trim(), p = els.loginPass.value.trim();
+    var na = getNA();
+    if (!na) { alert("API chưa sẵn sàng!"); return; }
+    
     els.btnLogin.disabled = true;
-    _n.login(_u, _pw, function(_r) {
-        if (_r && _r.ok) {
-            if (els.rememberMe.checked) window[_0xna[8]].setItem("\x5F\x6E\x61\x5F\x6C\x67", "\x74\x72\x75\x65");
-            els.loginPage.style.display = "\x6E\x6F\x6E\x65"; els.appPage.style.display = "\x62\x6C\x6F\x63\x6B";
-            updateUI();
-        } else { els.loginError.style.display = "\x62\x6C\x6F\x63\x6B"; els.btnLogin.disabled = false; }
+    na.login(u, p, function (res) {
+      if (res && res.ok) {
+        if(els.rememberMe.checked) localStorage.setItem('_na_logged', 'true');
+        els.loginPage.style.display = 'none';
+        els.appPage.style.display = 'block';
+        updateUI();
+      } else {
+        els.loginError.style.display = 'block';
+        els.btnLogin.disabled = false;
+      }
     });
-}
+  }
 
-els.btnConfirm.onclick = function() {
-    var _nm = els.winnerName.value.trim() || "\x4B\x68\x61\x63\x68\x20\x68\x61\x6E\x67";
-    state[_0xna[0]].push(pendingNumber);
-    state[_0xna[1]].push({ num: pendingNumber, name: _nm, prizeCode: pendingPrize.code, time: new Date().toLocaleTimeString() });
-    save(); updateUI(); els.overlay.classList.remove("show");
-};
+  if (localStorage.getItem('_na_logged') === 'true') {
+    els.loginPage.style.display = 'none';
+    els.appPage.style.display = 'block';
+    updateUI();
+  }
 
-els.btnReset.onclick = function() { if (confirm("\x58\xF3\x61\x20\x64\x1EEF\x20\x6C\x69\x1EC7\x75\x3F")) { state={usedNumbers:[],winners:[]}; save(); updateUI(); setDigits(0); } };
-els.btnLogout.onclick = function() { window[_0xna[8]].removeItem("\x5F\x6E\x61\x5F\x6C\x67"); location.reload(); };
-els.btnLogin.onclick = tryLogin; els.btnSpin.onclick = spin;
-els.btnCancel.onclick = els.btnClose.onclick = function() { els.overlay.classList.remove("show"); };
-if (window[_0xna[8]].getItem("\x5F\x6E\x61\x5F\x6C\x67") === "\x74\x72\x75\x65") { els.loginPage.style.display = "\x6E\x6F\x6E\x65"; els.appPage.style.display = "\x62\x6C\x6F\x63\x6B"; updateUI(); }
+  els.btnLogin.onclick = tryLogin;
+  els.btnSpin.onclick = spin;
+  els.btnCancel.onclick = els.btnClose.onclick = function() { els.overlay.classList.remove('show'); };
 </script>
 </body>
 </html>
