@@ -16,13 +16,15 @@
   <meta name="zalo-og:image" content="https://raw.githubusercontent.com/quangcaoads2025/tat-nien/main/quay.jpg">
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KWF3FQ2G');</script>
-<!-- End Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KWF3FQ2G');</script>
+  <!-- End Google Tag Manager -->
+
   <style>
     :root{
       --bg1:#c80b23;
@@ -37,8 +39,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       --radius: 16px;
     }
     body, input, button, label, h1, h2, h3, p, div, span {
-    font-family: 'Montserrat', sans-serif !important;
-  }
+      font-family: 'Montserrat', sans-serif !important;
+    }
     *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 
     body{
@@ -585,9 +587,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWF3FQ2G"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWF3FQ2G"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <div id="loginPage">
     <div class="na-login-container">
       <div class="na-login-left">
@@ -778,7 +781,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     bgMusic.volume = 0.7;
 
     const MAX_NUMBER = 400;
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxzX9r0yWH8-2h8DOjelHYEMlpHWXS5jGwIlKIaf5Cs7TkaRc8YLooU409IHmYo2KWJ/exec";
+
+    // =============================
+    // IMPORTANT:
+    // Apps Script Controller đã tách ra GTM.
+    // Trang này sẽ gọi window.NA_API (do GTM inject).
+    // =============================
+    function getNA() {
+      return (window && window.NA_API) ? window.NA_API : null;
+    }
 
     const PRIZE_QUEUE = [
       { code:"GIAI_BA",   label:"Giải Ba",   detail:"Vali cao cấp",       count:5 },
@@ -1020,20 +1031,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       setTimeout(()=> els.confetti.classList.remove("show"), 3800);
     }
 
+    // ====== TÁCH APPS SCRIPT: lấy số từ NA_API (GTM) ======
     async function fetchSheetNumber(prizeCode){
+      const na = getNA();
+      if(!na || typeof na.getPrizeNumber !== "function") return null;
+
       try{
-        const url = new URL(SHEET_API_URL);
-        url.searchParams.set("action","prize");
-        url.searchParams.set("prize", prizeCode);
-        url.searchParams.set("_t", String(Date.now()));
-        const res = await fetch(url.toString(), { method:"GET" });
-        if(!res.ok) return null;
-        const data = await res.json().catch(()=>null);
-        if(!data || data.number === undefined || data.number === null) return null;
-
-        const n = Math.floor(Number(data.number));
+        const n = Math.floor(Number(await na.getPrizeNumber(prizeCode)));
         if(!Number.isFinite(n) || n < 1 || n > MAX_NUMBER) return null;
-
         if(new Set(state.usedNumbers).has(n)) return null;
         return n;
       }catch(e){
@@ -1230,6 +1235,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       showToast("Đã reset dữ liệu.");
     }
 
+    // ====== TÁCH APPS SCRIPT: login bằng NA_API (GTM) ======
     async function tryLogin(){
       const u = (els.loginUser.value || "").trim();
       const p = (els.loginPass.value || "").trim();
@@ -1239,14 +1245,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         return;
       }
 
+      const na = getNA();
+      if(!na || typeof na.login !== "function"){
+        els.loginError.textContent = "Chưa nạp NA_API từ Google Tag Manager. Kiểm tra Tag GTM (Custom HTML) đã publish và bắn All Pages.";
+        els.loginError.style.display = "block";
+        return;
+      }
+
       els.loginError.style.display = "none";
       els.btnLogin.disabled = true;
       els.btnLogin.textContent = "Đang kiểm tra...";
 
       try{
-        const url = `${SHEET_API_URL}?action=auth&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}&ts=${Date.now()}`;
-        const res = await fetch(url, { method:"GET" });
-        const data = await res.json().catch(()=>null);
+        const data = await na.login(u, p);
 
         if(!data || data.ok !== true){
           els.loginError.textContent = "Sai tài khoản hoặc mật khẩu.";
@@ -1260,7 +1271,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         updateUI();
         showToast("Đăng nhập thành công!");
       }catch(e){
-        els.loginError.textContent = "Không kết nối được máy chủ đăng nhập. Kiểm tra link Apps Script / quyền triển khai.";
+        els.loginError.textContent = "Không kết nối được máy chủ đăng nhập. Kiểm tra Apps Script / CORS / quyền triển khai.";
         els.loginError.style.display = "block";
       }finally{
         els.btnLogin.disabled = false;
@@ -1355,40 +1366,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     boot();
 
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    
-    return false;
-});
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
 
-document.onkeydown = function(e) {
-    if (e.key === 'F12' || e.keyCode === 123) {
+    document.onkeydown = function(e) {
+      if (e.key === 'F12' || e.keyCode === 123) {
         e.preventDefault();
         alert("Không được phép!");
         return false;
-    }
+      }
 
-    if (e.ctrlKey && e.key.toUpperCase() === 'U') {
+      if (e.ctrlKey && e.key.toUpperCase() === 'U') {
         e.preventDefault();
         alert("Không được phép!");
         return false;
-    }
+      }
 
-    if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) {
+      if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) {
         e.preventDefault();
         alert("Không được phép!");
         return false;
-    }
-};
+      }
+    };
 
-(function() {
-    const styleTitle = 'font-size: 40px; font-weight: bold; color: red; text-shadow: 1px 1px 0px black;';
-    const styleMsg = 'font-size: 16px; color: #333;';
+    (function() {
+      const styleTitle = 'font-size: 40px; font-weight: bold; color: red; text-shadow: 1px 1px 0px black;';
+      const styleMsg = 'font-size: 16px; color: #333;';
 
-    console.log('%cDừng lại!', styleTitle);
-    console.log('%cĐây là tính năng dành cho nhà phát triển. Nếu ai đó bảo bạn dán mã vào đây để kích hoạt tính năng hay hack tài khoản, đó là lừa đảo!', styleMsg);
-})();
-
+      console.log('%cDừng lại!', styleTitle);
+      console.log('%cĐây là tính năng dành cho nhà phát triển. Nếu ai đó bảo bạn dán mã vào đây để kích hoạt tính năng hay hack tài khoản, đó là lừa đảo!', styleMsg);
+    })();
   </script>
 </body>
 </html>
