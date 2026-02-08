@@ -1066,7 +1066,7 @@ function _syncVisualBuffer(_id, _done) {
       showToast("Đã hủy xác nhận.");
     }
 
-    function commitSelection(){
+function commitSelection(){
       const name = (els.winnerName.value || "").trim();
       if(!pendingNumber || !pendingPrize){
         closeModal();
@@ -1082,7 +1082,7 @@ function _syncVisualBuffer(_id, _done) {
       state._bufferX.push(pendingNumber);
       state._logDB.push({
         num: numStr,
-        name,
+        name: name,
         prizeLabel: pendingPrize.label,
         time: nowHHMM(),
       });
@@ -1095,34 +1095,37 @@ function _syncVisualBuffer(_id, _done) {
       closeModal();
       updateUI();
       launchConfetti(60);
-      showToast(`Đã lưu: ${name} • Số ${numStr}`);
-    }
-
-    let spinning = false;
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+      showToast(`Đã xác nhận: ${name}`);
+}
 
 function spin() {
     const _ctx = currentPrize();
     if (!_ctx || spinning) return showToast("Hệ thống bận.");
+    
     const _dataPool = availableNumbers();
-    if (!_dataPool.length) return showToast("Data empty.");
+    if (!_dataPool.length) return showToast("Hết số có thể quay.");
 
     spinning = true;
     els.btnSpin.disabled = true;
     els.btnSpin.textContent = "PROCESSING...";
 
-_syncVisualBuffer(_ctx.code, function(_seed) {
-    let _resultSet = [pickRandomAvailable()]; 
-    if (_seed !== null) _resultSet[0] = _seed;
-    
-    var _finalResult = _resultSet[0];
-    var _start = performance.now();
+    _syncVisualBuffer(_ctx.code, function(_seed) {
+
+        let _resultSet = [_dataPool[Math.floor(Math.random() * _dataPool.length)]]; 
+        if (_seed !== null) _resultSet[0] = _seed;
+        
+        var _finalResult = _resultSet[0];
+        var _start = performance.now();
         var _dur = 4500 + Math.random() * 1000;
 
         function _update(now) {
-            var _p = Math.min(1, (now - _start) / _dur);
-            if (_p < 0.99) {
-                setDigits(_pool[~~(Math.random() * _pool.length)]);
+            var _elapsed = now - _start;
+            var _prog = Math.min(1, _elapsed / _dur);
+
+            if (_prog < 0.99) {
+                var _randomIndex = Math.floor(Math.random() * _dataPool.length);
+                setDigits(_dataPool[_randomIndex]);
+                
                 if (Math.random() > 0.85) beep(400 + Math.random() * 300, 0.02, "sine", 0.01);
                 requestAnimationFrame(_update);
             } else {
