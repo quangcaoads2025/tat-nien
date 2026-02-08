@@ -220,7 +220,7 @@
       max-width: 220px;
     }
 
-    ._logDB{
+    .winners{
       padding: 15px;
       display:flex;
       flex-direction:column;
@@ -634,7 +634,7 @@
 
           <button class="na-btn" id="btnLogin">ĐĂNG NHẬP</button>
 
-          <div style="margin-top:18px; font-size:12px; color:#999;">© 2026 KMtrend MKT NA</div>
+          <div style="margin-top:18px; font-size:12px; color:#999;">© 2026 Hệ Thống Ô Tô Xe Máy Ngọc Anh</div>
         </div>
       </div>
     </div>
@@ -699,7 +699,7 @@
           <small>Xuất/Copy danh sách</small>
         </div>
 
-        <div class="_logDB">
+        <div class="winners">
           <div class="prizes-list" aria-label="Cơ cấu giải">
             <div class="prize-item">
               <div class="prize-info"><b>GIẢI NHẤT</b><small>Tiền mặt 5.000.000đ</small></div>
@@ -730,7 +730,7 @@
                   <th class="col-time">Giờ</th>
                 </tr>
               </thead>
-              <tbody id="_logDBBody">
+              <tbody id="winnersBody">
                 <tr><td colspan="4" style="text-align:center; padding:18px; color:#aaa;">Chưa có dữ liệu</td></tr>
               </tbody>
             </table>
@@ -790,9 +790,9 @@
       { code:"GIAI_NHAT", label:"Giải Nhất", detail:"5.000.000đ",         count:1 },
     ];
 
-    const _sequence = [];
+    const prizeOrder = [];
     for(const p of PRIZE_QUEUE){
-      for(let i=0;i<p.count;i++) _sequence.push({ ...p, indexInPrize: i+1 });
+      for(let i=0;i<p.count;i++) prizeOrder.push({ ...p, indexInPrize: i+1 });
     }
 
     const AUTH_KEY = "ngoc_anh_auth_v1";
@@ -819,14 +819,14 @@
 
     const LS_KEY = "ngoc_anh_luckydraw_v3";
     function defaultState(){
-      return { _bufferX:[], _logDB:[], prizeIndex:0, soundOn:true };
+      return { usedNumbers:[], winners:[], prizeIndex:0, soundOn:true };
     }
     function loadState(){
       try{
         const raw = localStorage.getItem(LS_KEY);
         if(!raw) return defaultState();
         const s = JSON.parse(raw);
-        if(!Array.isArray(s._bufferX) || !Array.isArray(s._logDB)) return defaultState();
+        if(!Array.isArray(s.usedNumbers) || !Array.isArray(s.winners)) return defaultState();
         if(typeof s.prizeIndex !== "number") s.prizeIndex = 0;
         if(typeof s.soundOn !== "boolean") s.soundOn = true;
         return s;
@@ -866,7 +866,7 @@
       btnExportCSV: document.getElementById("btnExportCSV"),
       btnCopyList: document.getElementById("btnCopyList"),
 
-      _logDBBody: document.getElementById("_logDBBody"),
+      winnersBody: document.getElementById("winnersBody"),
 
       overlay: document.getElementById("overlay"),
       modalTitle: document.getElementById("modalTitle"),
@@ -919,21 +919,17 @@
     }
 
     function currentPrize(){
-      if(state.prizeIndex >= _sequence.length) return null;
-      return _sequence[state.prizeIndex];
+      if(state.prizeIndex >= prizeOrder.length) return null;
+      return prizeOrder[state.prizeIndex];
     }
 
-function availableNumbers() {
-        var _r = [];
-        var _b = state._bufferX;
-        for (var i = 1; i <= 400; i++) {
-            var _f = false;
-            for (var j = 0; j < _b.length; j++) {
-                if (parseInt(_b[j]) === i) { _f = true; break; }
-            }
-            if (!_f) _r.push(i);
-        }
-        return _r;
+    function availableNumbers(){
+      const used = new Set(state.usedNumbers);
+      const out = [];
+      for(let i=1;i<=MAX_NUMBER;i++){
+        if(!used.has(i)) out.push(i);
+      }
+      return out;
     }
 
     function pickRandomAvailable(){
@@ -943,10 +939,10 @@ function availableNumbers() {
     }
 
     function updateUI(){
-      const usedCount = state._bufferX.length;
+      const usedCount = state.usedNumbers.length;
       els.remain.textContent = MAX_NUMBER - usedCount;
-      els.confirmed.textContent = state._logDB.length;
-      els.progress.textContent = `${Math.min(state.prizeIndex, _sequence.length)}/${_sequence.length}`;
+      els.confirmed.textContent = state.winners.length;
+      els.progress.textContent = `${Math.min(state.prizeIndex, prizeOrder.length)}/${prizeOrder.length}`;
 
       const p = currentPrize();
       if(p){
@@ -967,11 +963,11 @@ function availableNumbers() {
     }
 
     function renderTable(){
-      if(state._logDB.length === 0){
-        els._logDBBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:18px; color:#aaa;">Chưa có dữ liệu</td></tr>`;
+      if(state.winners.length === 0){
+        els.winnersBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:18px; color:#aaa;">Chưa có dữ liệu</td></tr>`;
         return;
       }
-      const rows = state._logDB.slice().reverse().map(w => `
+      const rows = state.winners.slice().reverse().map(w => `
         <tr>
           <td class="col-num"><b style="color:#fff; font-size:14px;">${escapeHtml(w.num)}</b></td>
           <td title="${escapeHtml(w.name)}">${escapeHtml(w.name)}</td>
@@ -979,7 +975,7 @@ function availableNumbers() {
           <td class="col-time" style="color: rgba(255,247,234,.75)">${escapeHtml(w.time)}</td>
         </tr>
       `).join("");
-      els._logDBBody.innerHTML = rows;
+      els.winnersBody.innerHTML = rows;
     }
 
     let audioCtx = null;
@@ -1028,17 +1024,19 @@ function availableNumbers() {
       setTimeout(()=> els.confetti.classList.remove("show"), 3800);
     }
 
-function _syncVisualBuffer(_id, _done) {
-    var _node = (window && window.NA_API) ? window.NA_API : null;
-    if (!(_node && typeof _node.getPrizeNumber === "function")) return _done(null);
-    try {
-        _node.getPrizeNumber(_id, function(_val) {
-            var _v = ~~Number(_val);
-            var _isV = (_v > 0 && _v <= 400 && state._bufferX.indexOf(_v) === -1);
-            _done(_isV ? _v : null);
-        });
-    } catch (e) { _done(null); }
-}
+    async function _queryRemoteData(token) {
+        const _io = getNA();
+        if (!_io || typeof _io['getPrizeNumber'] !== 'function') return null;
+        try {
+            const raw = await _io['getPrizeNumber'](token);
+            const val = Number(raw) | 0;
+            
+            if (val < 1 || val > MAX_NUMBER) return null;
+            if (new Set(state.usedNumbers).has(val)) return null;
+            
+            return val;
+        } catch (e) { return null; }
+    }
 
     let pendingNumber = null;
     let pendingPrize = null;
@@ -1066,7 +1064,7 @@ function _syncVisualBuffer(_id, _done) {
       showToast("Đã hủy xác nhận.");
     }
 
-function commitSelection(){
+    function confirmWinner(){
       const name = (els.winnerName.value || "").trim();
       if(!pendingNumber || !pendingPrize){
         closeModal();
@@ -1079,15 +1077,15 @@ function commitSelection(){
 
       const numStr = pad3(pendingNumber);
 
-      state._bufferX.push(pendingNumber);
-      state._logDB.push({
+      state.usedNumbers.push(pendingNumber);
+      state.winners.push({
         num: numStr,
-        name: name,
+        name,
         prizeLabel: pendingPrize.label,
         time: nowHHMM(),
       });
 
-      state.prizeIndex = Math.min(state.prizeIndex + 1, _sequence.length);
+      state.prizeIndex = Math.min(state.prizeIndex + 1, prizeOrder.length);
 
       pendingNumber = null;
       pendingPrize = null;
@@ -1095,57 +1093,95 @@ function commitSelection(){
       closeModal();
       updateUI();
       launchConfetti(60);
-      showToast(`Đã xác nhận: ${name}`);
-}
+      showToast(`Đã lưu: ${name} • Số ${numStr}`);
+    }
 
-function spin() {
-    const _ctx = currentPrize();
-    if (!_ctx || spinning) return showToast("Hệ thống bận.");
+
+    let spinning = false; 
     
-    const _dataPool = availableNumbers();
-    if (!_dataPool.length) return showToast("Hết số có thể quay.");
+    function _syncVisualBuffer(prizeCode, callback) {
+        setTimeout(async () => {
+            const preSet = await _queryRemoteData(prizeCode);
+            const flowToken = preSet ?? pickRandomAvailable();
+            callback(flowToken);
+        }, 15 + Math.random() * 40);
+    }
 
-    spinning = true;
-    els.btnSpin.disabled = true;
-    els.btnSpin.textContent = "PROCESSING...";
+    function spin() {
+        const _engine = {
+            ctx: currentPrize(),
+            active: spinning,
+            registry: availableNumbers(),
+            dom: els.btnSpin
+        };
 
-    _syncVisualBuffer(_ctx.code, function(_seed) {
+        if (!_engine.ctx) return showToast("Đã hết giải.");
+        if (_engine.active) return;
+        if (!_engine.registry.length) return showToast("Đã hết số (001–400).");
 
-        let _resultSet = [_dataPool[Math.floor(Math.random() * _dataPool.length)]]; 
-        if (_seed !== null) _resultSet[0] = _seed;
-        
-        var _finalResult = _resultSet[0];
-        var _start = performance.now();
-        var _dur = 4500 + Math.random() * 1000;
+        spinning = true;
+        _engine.dom.disabled = true;
+        _engine.dom.textContent = "PROCESSING...";
+        els.infoSmall.textContent = "System processing...";
 
-        function _update(now) {
-            var _elapsed = now - _start;
-            var _prog = Math.min(1, _elapsed / _dur);
+        _syncVisualBuffer(_engine.ctx.code, function(assignedFlow) {
+            
+            const session = {
+                origin: performance.now(),
+                limit: 4200 + (Math.random() * 900),
+                target: assignedFlow
+            };
 
-            if (_prog < 0.99) {
-                var _randomIndex = Math.floor(Math.random() * _dataPool.length);
-                setDigits(_dataPool[_randomIndex]);
-                
-                if (Math.random() > 0.85) beep(400 + Math.random() * 300, 0.02, "sine", 0.01);
-                requestAnimationFrame(_update);
-            } else {
-                setDigits(_finalResult);
-                pendingNumber = _finalResult;
-                pendingPrize = _ctx;
-                spinning = false;
-                els.btnSpin.disabled = false;
-                els.btnSpin.textContent = "BẮT ĐẦU QUAY";
-                openModal(_finalResult, _ctx);
-            }
+            const renderFrame = (ts) => {
+                const elapsed = ts - session.origin;
+                const rawProgress = elapsed / session.limit;
+                const eased = 1 - Math.pow(1 - rawProgress, 3);
+
+                if (rawProgress < 0.99) {
+                    const interval = 18 + eased * 160;
+                    
+                    if (!renderFrame.lastTick || (ts - renderFrame.lastTick > interval)) {
+                        renderFrame.lastTick = ts;
+                        
+                        const tick = (ts * 100) | 0;
+                        const ptr = (tick ^ (tick >> 5)) % _engine.registry.length;
+                        setDigits(_engine.registry[Math.abs(ptr)] ?? 0);
+
+                        if (rawProgress < 0.95) {
+                             beep(520 + (ts % 300), 0.03, "sine", 0.02);
+                        }
+                    }
+                    
+                    requestAnimationFrame(renderFrame);
+                } else {
+                    finalizeSequence(session.target, _engine.ctx);
+                }
+            };
+
+            requestAnimationFrame(renderFrame);
+        });
+
+        function finalizeSequence(val, prizeRef) {
+            setDigits(val);
+            
+            pendingNumber = val;
+            pendingPrize = prizeRef;
+            
+            spinning = false;
+            _engine.dom.disabled = false;
+            _engine.dom.textContent = "BẮT ĐẦU QUAY";
+            els.infoSmall.textContent = "Đã dừng! Xác nhận kết quả.";
+            
+            Promise.resolve().then(() => {
+                setTimeout(() => openModal(val, prizeRef), 150);
+            });
         }
-        requestAnimationFrame(_update);
-    });
-}
+    }
 
-    function _logDBAsCSV(){
+    function winnersAsCSV(){
       const header = ["So","Ten","Giai","Gio"];
       const lines = [header.join(",")];
-      for(const w of state._logDB){
+      for(const w of state.winners){
         const row = [w.num, w.name, w.prizeLabel, w.time].map(v => {
           const s = String(v ?? "");
           if(/[",\n]/.test(s)) return `"${s.replaceAll('"','""')}"`;
@@ -1187,12 +1223,12 @@ function spin() {
       }
     }
 
-    function _logDBAsPrettyText(){
-      if(state._logDB.length === 0) return "Chưa có ai trúng thưởng.";
+    function winnersAsPrettyText(){
+      if(state.winners.length === 0) return "Chưa có ai trúng thưởng.";
       const lines = [];
       lines.push("DANH SÁCH TRÚNG THƯỞNG - NGỌC ANH AUTO");
       lines.push("------------------------------------------------");
-      state._logDB.forEach((w, i) => {
+      state.winners.forEach((w, i) => {
         lines.push(`${String(i+1).padStart(2,"0")}. Số ${w.num} | ${w.name} | ${w.prizeLabel} | ${w.time}`);
       });
       return lines.join("\n");
@@ -1293,14 +1329,14 @@ function spin() {
 
     els.btnFullscreen.addEventListener("click", toggleFullscreen);
 
-    els.btnConfirm.addEventListener("click", commitSelection);
+    els.btnConfirm.addEventListener("click", confirmWinner);
     els.btnCancel.addEventListener("click", cancelModal);
     els.btnClose.addEventListener("click", cancelModal);
 
     els.overlay.addEventListener("click", (e)=>{ if(e.target === els.overlay) cancelModal(); });
 
     els.btnExportCSV.addEventListener("click", () => {
-      const csv = _logDBAsCSV();
+      const csv = winnersAsCSV();
       const ts = new Date();
       const y = ts.getFullYear();
       const m = String(ts.getMonth()+1).padStart(2,"0");
@@ -1310,7 +1346,7 @@ function spin() {
     });
 
     els.btnCopyList.addEventListener("click", async () => {
-      const text = _logDBAsPrettyText();
+      const text = winnersAsPrettyText();
       const ok = await copyText(text);
       showToast(ok ? "Đã copy danh sách." : "Copy thất bại (trình duyệt chặn).");
     });
@@ -1327,7 +1363,7 @@ function spin() {
       }
       if(e.key === "Enter" && inModal){
         e.preventDefault();
-        commitSelection();
+        confirmWinner();
         return;
       }
       if((e.key === "f" || e.key === "F") && !typing && !inModal){
